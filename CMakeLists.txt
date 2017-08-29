@@ -3,6 +3,7 @@ project(boo)
 
 set(ATen_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ATen)
 set(ATen_BINARY_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/ATen/build)
+set(MNIST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mnist)
 
 # C++11
 if(CMAKE_VERSION VERSION_LESS "3.1")
@@ -39,6 +40,9 @@ include_directories(
 ${ATen_SOURCE_DIR}/src
 ${ATen_BINARY_DIR}/src/ATen)
 
+include_directories(
+${MNIST_SOURCE_DIR}/include/mnist)
+
 INCLUDE_DIRECTORIES(${CUDA_INCLUDE_DIRS})
 
 include_directories(
@@ -67,7 +71,10 @@ ADD_EXECUTABLE(opencv_realtime_webcam_human_segmentation examples/opencv_realtim
 TARGET_LINK_LIBRARIES(opencv_realtime_webcam_human_segmentation ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})
 
 ADD_EXECUTABLE(pytorch_results_deviation examples/pytorch_results_deviation.cpp)
-TARGET_LINK_LIBRARIES(pytorch_results_deviation ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs})
+TARGET_LINK_LIBRARIES(pytorch_results_deviation ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})
+
+ADD_EXECUTABLE(mnist examples/mnist.cpp)
+TARGET_LINK_LIBRARIES(mnist ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})
 
 ADD_EXECUTABLE(opencv_realtime_webcam_imagenet_classification examples/opencv_realtime_webcam_imagenet_classification.cpp)
 TARGET_LINK_LIBRARIES(opencv_realtime_webcam_imagenet_classification ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})

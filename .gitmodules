@@ -1,3 +1,7 @@
 [submodule "ATen"]
 	path = ATen
 	url = git@github.com:warmspringwinds/ATen.git
+[submodule "mnist"]
+	path = mnist
+	url = https://github.com/wichtounet/mnist.git
+	branch = master
