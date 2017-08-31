@@ -1354,7 +1354,7 @@ namespace torch
       hsize_t * dims_hsize_t;
 
       // We need this because one function can't accept hsize_t
-      vector<long> dims_int;
+      vector<int64_t> dims_int;
 
       // Float buffer to intermediately store weights
       float * float_buffer;
@@ -1392,7 +1392,7 @@ namespace torch
         {
 
           // Converting hsize_t to int
-          dims_int.push_back(long(dims_hsize_t[i]));
+          dims_int.push_back(int64_t(dims_hsize_t[i]));
         }
 
         // Allocate temporary float buffer

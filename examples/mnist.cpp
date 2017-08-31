@@ -38,7 +38,7 @@ string train_net(string hdf5_checkpoint) {
   auto net = torch::resnet50_imagenet();
   net->load_weights(hdf5_checkpoint);
   // train net
-  net->cuda();
+  // net->cuda();
   // conduct training
 
   // retain checkpoint on disk
@@ -57,7 +57,7 @@ void predict(string hdf5_checkpoint) {
   auto dataset = mnist::read_dataset<std::vector, std::vector, uint8_t, uint8_t>("../mnist");
   auto net = torch::resnet50_imagenet();
   net->load_weights(hdf5_checkpoint);
-  net->cuda();
+  // net->cuda();
   
   auto input_image = dataset.training_images[0];
   int input_size = sqrt(input_image.size());
@@ -72,7 +72,8 @@ void predict(string hdf5_checkpoint) {
 
   auto image_batch_normalized_tensor = torch::preprocess_batch(image_tensor);
 
-  auto input_tensor_gpu = image_batch_normalized_tensor.toBackend(Backend::CUDA);
+  // auto input_tensor_gpu = image_batch_normalized_tensor.toBackend(Backend::CUDA);
+  auto input_tensor_gpu = image_batch_normalized_tensor.toBackend(Backend::CPU);
 
   auto result = net->forward(input_tensor_gpu);
 
@@ -85,7 +86,7 @@ void predict(string hdf5_checkpoint) {
 
   top_probability_indexes = top_probability_indexes.toBackend(Backend::CPU).view({-1});
 
-  auto accessor = top_probability_indexes.accessor<long,1>();
+  auto accessor = top_probability_indexes.accessor<int64_t,1>();
 
   cout << imagenet_classes[ accessor[0] ] << endl;
 }
