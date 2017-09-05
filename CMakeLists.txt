@@ -64,21 +64,8 @@ ${CMAKE_CURRENT_SOURCE_DIR}/CMake-hdf5-1.8.19/build/bin/libszip.a
 # Temporary solution -- change to a normal cpp project structure later
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+ADD_EXECUTABLE(perceptron examples/perceptron.cpp)
+TARGET_LINK_LIBRARIES(perceptron ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})
 
-# ADD_EXECUTABLE(read_allocated_gpu_memory examples/read_allocated_gpu_memory.cpp)
-# TARGET_LINK_LIBRARIES(read_allocated_gpu_memory ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES})
-
-# ADD_EXECUTABLE(opencv_realtime_webcam_human_segmentation examples/opencv_realtime_webcam_human_segmentation.cpp)
-# TARGET_LINK_LIBRARIES(opencv_realtime_webcam_human_segmentation ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})
-
-# ADD_EXECUTABLE(pytorch_results_deviation examples/pytorch_results_deviation.cpp)
-# TARGET_LINK_LIBRARIES(pytorch_results_deviation ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})
-
-ADD_EXECUTABLE(mnist examples/mnist.cpp)
-TARGET_LINK_LIBRARIES(mnist ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})
-
-# ADD_EXECUTABLE(opencv_realtime_webcam_imagenet_classification examples/opencv_realtime_webcam_imagenet_classification.cpp)
-# TARGET_LINK_LIBRARIES(opencv_realtime_webcam_imagenet_classification ${ATen_BINARY_DIR}/src/ATen/libATen.so.1 ${CUDA_LIBRARIES} ${_hdf5_libs} ${OpenCV_LIBS})
-
-
-#add_subdirectory(examples)
+ADD_EXECUTABLE(numpy examples/numpy.cpp)
+TARGET_LINK_LIBRARIES(numpy ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})
