@@ -67,5 +67,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 ADD_EXECUTABLE(perceptron examples/perceptron.cpp)
 TARGET_LINK_LIBRARIES(perceptron ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})
 
+ADD_EXECUTABLE(vanilla examples/vanilla.cpp)
+TARGET_LINK_LIBRARIES(vanilla ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})
+
+ADD_EXECUTABLE(deep examples/deep.cpp)
+TARGET_LINK_LIBRARIES(deep ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})
+
 ADD_EXECUTABLE(numpy examples/numpy.cpp)
 TARGET_LINK_LIBRARIES(numpy ${ATen_BINARY_DIR}/src/ATen/libATen.dylib ${_hdf5_libs} ${OpenCV_LIBS})

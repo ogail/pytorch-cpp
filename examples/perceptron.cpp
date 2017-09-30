@@ -1,8 +1,5 @@
 /*
-Example shows how to run a resnet 50 imagenet-trained classification
-model on a dummy input and save it to an hdf5 file. This output can be
-later on compared to the output acquired from pytorch in a provided .ipynb
-notebook -- results differ no more than 10^{-5}.
+This example builds logistic regressor using one neuron to conduct binary classification task for mutated MNIST dataset.
 */
 
 #include "ATen/ATen.h"
@@ -288,7 +285,6 @@ experiment_result model(Tensor X_train, Tensor Y_train, Tensor X_test, Tensor Y_
   init_result init_res = initialize_with_zeros(X_train.size(0));
   Tensor w = init_res.w;
   Tensor b = init_res.b;
-  
 
   // Gradient descent
   optimize_result res = optimize(w, b, X_train, Y_train, num_iterations, learning_rate, print_cost);
@@ -330,12 +326,19 @@ dataset_preprocess_result preprocess_dataset(vector<vector<uint8_t>> images, vec
   // update mnist labels so the problem is binary, detecting if provided image has 'a' or not.
   for (int i=0; i < labels.size(); i++) {
     if (labels[i]) {
-      // this label holds letter other than 'a'
+      // this label holds digit other than '0'
       labels[i] = 0;
     } else {
-      // this label holds 'a'
+      // this label holds '0'
       labels[i] = 1;
     }
+  }
+
+  // select random 100 samples and save them to disk
+  for (int i = 0; i < 100; i++) {
+    vector<uint8_t> img = images[i];
+    Mat resized = resize_image(img, sqrt(img.size()));
+    imwrite(to_string(labels[i]) + "-" + to_string(i) + ".jpg", resized);
   }
 
   // common variables
@@ -375,7 +378,7 @@ int main() {
   train_set_x = res.X;
   train_set_y = res.Y;
   
-  // preprocess training dataset
+  // preprocess testing dataset
   res = preprocess_dataset(dataset.test_images, dataset.test_labels);
   test_set_x = res.X;
   test_set_y = res.Y;
